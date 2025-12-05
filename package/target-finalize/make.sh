@@ -3,6 +3,8 @@ source $(dirname "$0")/../common.sh
 
 PKGNAME=target-finalize
 
+PYTHON3_BUILD_DIR=${BUILD_DIR}/python3-3.13.7
+
 mkdir -p ${TARGET_DIR}/etc
 
 echo ">>>   Installing ifupdown-scripts"
@@ -28,6 +30,9 @@ if grep -q CONFIG_HUSH=y ${BUILD_DIR}/busybox-1.37.0/.config; then grep -qsE '^/
 grep -qsE '^/bin/sh$' ${TARGET_DIR}/etc/shells || echo "/bin/sh" >> ${TARGET_DIR}/etc/shells
 grep -qsE '^/bin/bash$' ${TARGET_DIR}/etc/shells || echo "/bin/bash" >> ${TARGET_DIR}/etc/shells
 ln -sf bash ${TARGET_DIR}/bin/sh
+PYTHONPATH="${STAGING_DIR}/usr/lib/python3.13/" ${HOST_DIR}/bin/python3.13 ${PYTHON3_BUILD_DIR}/Lib/compileall.py  -b -s ${TARGET_DIR} -p / ${TARGET_DIR}/usr/lib/python3.13
+find ${TARGET_DIR}/usr/lib/python3.13 -name '*.py'  -print0 | xargs -0 --no-run-if-empty rm -f
+find ${TARGET_DIR}/usr/lib/python3.13 -name '*.opt-1.pyc' -print0 -o -name '*.opt-2.pyc' -print0 | xargs -0 --no-run-if-empty rm -f
 echo "buildlinux" > ${TARGET_DIR}/etc/hostname
 /usr/bin/sed -i -e '$a \127.0.1.1\tbuildlinux' -e '/^127.0.1.1/d' ${TARGET_DIR}/etc/hosts
 echo "Welcome to Build Linux System From Scratch" > ${TARGET_DIR}/etc/issue

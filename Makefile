@@ -89,5 +89,15 @@ bash:
 vim:
 	@./package/vim/make.sh || exit 1
 
+.PHONY: python3
+python3:
+	@./package/libffi/make.sh || exit 1
+	@./package/autoconf-archive/make-host.sh || exit 1
+	@./package/expat/make-host.sh || exit 1
+	@./package/libffi/make-host.sh || exit 1
+	@./package/python3/make-host.sh || exit 1
+	@./package/python3/make.sh || exit 1
+	@./package/snake/make.sh || exit 1
+
 clean:
 	rm -rf output/

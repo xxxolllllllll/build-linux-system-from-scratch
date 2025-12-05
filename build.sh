@@ -12,5 +12,6 @@ make sysvinit || exit 1
 make coreutils || exit 1
 make bash || exit 1
 make vim || exit 1
+make python3 || exit 1
 make before-target-image || exit 1
 make rebuild-target-image || exit 1

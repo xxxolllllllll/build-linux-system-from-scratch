@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 source $(dirname "$0")/../common.sh
 
-ROOTFS_EXT2_SIZE=60M
+ROOTFS_EXT2_SIZE=128M
 
 echo ">>>   Generating root filesystems common tables"
 rm -rf ${BUILD_DIR}/buildroot-fs
@@ -64,6 +64,7 @@ echo ${QEMU_CMD} > ${IMAGES_DIR}/start-qemu.sh
 chmod +x ${IMAGES_DIR}/start-qemu.sh
 
 # 如果是 initramfs 启动，在构建出 initrd.img 后可以采用如下
-QEMU_CMD_INITRAMFS="qemu-system-riscv64 -M virt -m 256M -nographic -bios fw_jump.bin -kernel Image -initrd initrd.img -append \"nokaslr rdinit=/sbin/init console=ttyS0\" -netdev user,id=net0 -device virtio-net-device,netdev=net0"
+# 注意这里使用 512M 内存启动，否则可能会因为内存不足导致启动失败："Initramfs unpacking failed: write error"
+QEMU_CMD_INITRAMFS="qemu-system-riscv64 -M virt -m 512M -nographic -bios fw_jump.bin -kernel Image -initrd initrd.img -append \"nokaslr rdinit=/sbin/init console=ttyS0\" -netdev user,id=net0 -device virtio-net-device,netdev=net0"
 echo ${QEMU_CMD_INITRAMFS} > ${IMAGES_DIR}/start-qemu-initramfs.sh
 chmod +x ${IMAGES_DIR}/start-qemu-initramfs.sh

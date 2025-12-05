@@ -35,3 +35,7 @@ export ONLY_DOWNLOAD=y
 ./package/readline/make.sh || exit 1
 ./package/bash/make.sh || exit 1
 ./package/vim/make.sh || exit 1
+./package/libffi/make.sh || exit 1
+./package/autoconf-archive/make-host.sh || exit 1
+./package/expat/make-host.sh || exit 1
+./package/python3/make-host.sh || exit 1
