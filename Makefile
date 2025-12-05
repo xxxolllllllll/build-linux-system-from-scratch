@@ -74,5 +74,9 @@ sysvinit:
 	@./package/libxcrypt/make.sh || exit 1
 	@./package/sysvinit/make.sh || exit 1
 
+.PHONY: coreutils
+coreutils:
+	@./package/coreutils/make.sh || exit 1
+
 clean:
 	rm -rf output/

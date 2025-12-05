@@ -30,3 +30,4 @@ export ONLY_DOWNLOAD=y
 ./package/gettext-tiny/make-host.sh || exit 1
 ./package/libxcrypt/make.sh || exit 1
 ./package/sysvinit/make.sh || exit 1
+./package/coreutils/make.sh || exit 1
