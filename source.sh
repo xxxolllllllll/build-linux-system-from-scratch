@@ -31,3 +31,6 @@ export ONLY_DOWNLOAD=y
 ./package/libxcrypt/make.sh || exit 1
 ./package/sysvinit/make.sh || exit 1
 ./package/coreutils/make.sh || exit 1
+./package/ncurses/make-host.sh || exit 1
+./package/readline/make.sh || exit 1
+./package/bash/make.sh || exit 1

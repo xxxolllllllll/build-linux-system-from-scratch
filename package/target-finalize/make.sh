@@ -26,10 +26,13 @@ echo ">>>   Finalizing target directory"
 if grep -q CONFIG_ASH=y ${BUILD_DIR}/busybox-1.37.0/.config; then grep -qsE '^/bin/ash$' ${TARGET_DIR}/etc/shells || echo "/bin/ash" >> ${TARGET_DIR}/etc/shells; fi
 if grep -q CONFIG_HUSH=y ${BUILD_DIR}/busybox-1.37.0/.config; then grep -qsE '^/bin/hush$' ${TARGET_DIR}/etc/shells || echo "/bin/hush" >> ${TARGET_DIR}/etc/shells; fi
 grep -qsE '^/bin/sh$' ${TARGET_DIR}/etc/shells || echo "/bin/sh" >> ${TARGET_DIR}/etc/shells
+grep -qsE '^/bin/bash$' ${TARGET_DIR}/etc/shells || echo "/bin/bash" >> ${TARGET_DIR}/etc/shells
+ln -sf bash ${TARGET_DIR}/bin/sh
 echo "buildlinux" > ${TARGET_DIR}/etc/hostname
 /usr/bin/sed -i -e '$a \127.0.1.1\tbuildlinux' -e '/^127.0.1.1/d' ${TARGET_DIR}/etc/hosts
 echo "Welcome to Build Linux System From Scratch" > ${TARGET_DIR}/etc/issue
 /usr/bin/sed -i -e s,^root:[^:]*:,root::, ${TARGET_DIR}/etc/shadow
+/usr/bin/sed -i -e '/^root:/s,[^/]*$,bash,' ${TARGET_DIR}/etc/passwd
 if [ -x ${TARGET_DIR}/sbin/swapon -a -x ${TARGET_DIR}/sbin/swapoff ]; then
 	/usr/bin/sed -i -e '/^#.*\/sbin\/swap/s/^#\+[[:blank:]]*//' ${TARGET_DIR}/etc/inittab;
 else
@@ -62,8 +65,6 @@ find ${TARGET_DIR}/usr/{lib,share}/ -name '*.cmake' -print0 | xargs -0 rm -f
 find ${TARGET_DIR}/lib/ ${TARGET_DIR}/usr/lib/ ${TARGET_DIR}/usr/libexec/ \
 	\( -name '*.a' -o -name '*.la' -o -name '*.prl' \) -print0 | xargs -0 rm -f
 rm -rf ${TARGET_DIR}/usr/share/gdb
-rm -rf ${TARGET_DIR}/usr/share/bash-completion
-rm -rf ${TARGET_DIR}/etc/bash_completion.d
 rm -rf ${TARGET_DIR}/usr/share/zsh
 rm -rf ${TARGET_DIR}/usr/man ${TARGET_DIR}/usr/share/man
 rm -rf ${TARGET_DIR}/usr/info ${TARGET_DIR}/usr/share/info

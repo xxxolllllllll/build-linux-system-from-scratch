@@ -78,5 +78,12 @@ sysvinit:
 coreutils:
 	@./package/coreutils/make.sh || exit 1
 
+.PHONY: bash
+bash:
+	@./package/ncurses/make-host.sh || exit 1
+	@./package/ncurses/make.sh || exit 1
+	@./package/readline/make.sh || exit 1
+	@./package/bash/make.sh || exit 1
+
 clean:
 	rm -rf output/
