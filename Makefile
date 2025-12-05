@@ -85,5 +85,9 @@ bash:
 	@./package/readline/make.sh || exit 1
 	@./package/bash/make.sh || exit 1
 
+.PHONY: vim
+vim:
+	@./package/vim/make.sh || exit 1
+
 clean:
 	rm -rf output/

@@ -34,3 +34,4 @@ export ONLY_DOWNLOAD=y
 ./package/ncurses/make-host.sh || exit 1
 ./package/readline/make.sh || exit 1
 ./package/bash/make.sh || exit 1
+./package/vim/make.sh || exit 1
