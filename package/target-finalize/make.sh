@@ -21,7 +21,7 @@ echo ">>>   Installing urandom-scripts"
 /usr/bin/install -D -m 0755 ${PROJECT_DIR}/package/${PKGNAME}/urandom-scripts/S01seedrng ${TARGET_DIR}/etc/init.d/S01seedrng
 
 echo ">>>   Finalizing target directory"
-/usr/bin/sed -i -e '/# GENERIC_SERIAL$/s~^.*#~console::respawn:/sbin/getty -L  console 0 vt100 #~' ${TARGET_DIR}/etc/inittab
+/usr/bin/sed -i -e '/# GENERIC_SERIAL$/s~^.*#~sole::respawn:/sbin/getty -L  console 0 vt100 #~' ${TARGET_DIR}/etc/inittab
 /usr/bin/sed -i -e '/^#.*-o remount,rw \/$/s~^#\+~~' ${TARGET_DIR}/etc/inittab
 if grep -q CONFIG_ASH=y ${BUILD_DIR}/busybox-1.37.0/.config; then grep -qsE '^/bin/ash$' ${TARGET_DIR}/etc/shells || echo "/bin/ash" >> ${TARGET_DIR}/etc/shells; fi
 if grep -q CONFIG_HUSH=y ${BUILD_DIR}/busybox-1.37.0/.config; then grep -qsE '^/bin/hush$' ${TARGET_DIR}/etc/shells || echo "/bin/hush" >> ${TARGET_DIR}/etc/shells; fi

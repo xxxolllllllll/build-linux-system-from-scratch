@@ -8,5 +8,6 @@ make toolchain  || exit 1
 make opensbi  || exit 1
 make linux  || exit 1
 make busybox  || exit 1
+make sysvinit || exit 1
 make before-target-image || exit 1
 make rebuild-target-image || exit 1

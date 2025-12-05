@@ -69,5 +69,10 @@ rebuild-target-image:
 	@./package/rootfs-ext2/make.sh || exit 1
 	@echo "<---- $@ build complete."
 
+.PHONY: sysvinit
+sysvinit:
+	@./package/libxcrypt/make.sh || exit 1
+	@./package/sysvinit/make.sh || exit 1
+
 clean:
 	rm -rf output/

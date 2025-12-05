@@ -28,3 +28,5 @@ export ONLY_DOWNLOAD=y
 ./package/fakeroot/make-host.sh || exit 1
 ./package/flex/make-host.sh || exit 1
 ./package/gettext-tiny/make-host.sh || exit 1
+./package/libxcrypt/make.sh || exit 1
+./package/sysvinit/make.sh || exit 1
