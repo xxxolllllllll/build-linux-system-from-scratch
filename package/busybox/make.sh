@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 source $(dirname "$0")/../common.sh
+// test !!!
+echo "CROSS_COMPILE is: ${CROSS_COMPILE}"
+echo "TARGET_DIR is: ${TARGET_DIR}"
 
 PKGNAME=busybox
 PKGVERSION=1.37.0
